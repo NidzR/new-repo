@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generative AI Website</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #190303;
+  }
+  canvas {
+    display: block;
+    margin: auto;
+    background-color: #211a1a;
+  }
+</style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+
+<script>
+  const canvas = document.getElementById('myCanvas');
+  const ctx = canvas.getContext('2d');
+  const colors = ['#FF5733', '#C70039', '#900C3F', '#581845', '#18A0FB', '#2ECC71', '#F39C12', '#8E44AD', '#3498DB', '#7F8C8D'];
+
+  function draw() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    const radius = Math.random() * 50 + 10;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  function drawLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const shapesCount = Math.floor(Math.random() * 10) + 5; // Generate between 5 to 14 shapes
+    for (let i = 0; i < shapesCount; i++) {
+      draw();
+    }
+    requestAnimationFrame(drawLoop);
+  }
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+
+  resizeCanvas();
+  drawLoop();
+</script>
+</body>
+</html>
